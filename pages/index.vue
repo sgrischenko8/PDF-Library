@@ -72,9 +72,7 @@ async function login() {
       credentials: 'include',
     })
     if (response.photo) {
-      userPhotoPath.value = `http://localhost:3001/${response.photo
-        .toString()
-        .replaceAll(/\\/g, '/')}`
+      userPhotoPath.value = `http://localhost:3001/${response.photo}`
     }
     onClose()
     userDatas.value = response
@@ -114,9 +112,7 @@ async function getUser() {
     })
     userDatas.value = response
     if (response.photo) {
-      userPhotoPath.value = `http://localhost:3001/${response.photo
-        .toString()
-        .replaceAll(/\\/g, '/')}`
+      userPhotoPath.value = `http://localhost:3001/${response.photo}`
     }
   } catch (error) {
     console.error('Error fetching user data:', error)

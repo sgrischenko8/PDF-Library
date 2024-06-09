@@ -127,7 +127,7 @@ onBeforeUnmount(() => {
       id="image"
       height="200"
       aspect-ratio="1/1"
-      :src="imageUrl ? imageUrl : imgPath"
+      :src="imageUrl ? imageUrl : imgPath?.toString().replaceAll(/\\/g, '/')"
       :style="{
         minWidth: imageUrl || imgPath ? '100%' : '0',
         maxHeight: '200px',
