@@ -71,7 +71,11 @@ async function login() {
       },
       credentials: 'include',
     })
-
+    if (response.photo) {
+      userPhotoPath.value = `http://localhost:3001/${response.photo
+        .toString()
+        .replaceAll(/\\/g, '/')}`
+    }
     onClose()
     userDatas.value = response
     userIdCookied.value = response._id
@@ -89,7 +93,7 @@ async function logout() {
     })
     currentSuccsessDialog.value = 'logout'
     errorMessage.value = ''
-    userDatas.value = null
+    userDatas.value = {}
     userIdCookied.value = ''
   } catch (error) {
     console.error('Error logging user:', error)
@@ -101,13 +105,13 @@ async function logout() {
 async function getUser() {
   try {
     if (!userIdCookied.value) {
+      userDatas.value = {}
       return
     }
     const response = await $fetch(`http://localhost:3001/users/current`, {
       method: 'GET',
       credentials: 'include',
     })
-
     userDatas.value = response
     if (response.photo) {
       userPhotoPath.value = `http://localhost:3001/${response.photo
@@ -116,6 +120,7 @@ async function getUser() {
     }
   } catch (error) {
     console.error('Error fetching user data:', error)
+    userDatas.value = []
     userIdCookied.value = null
   }
 }
@@ -208,13 +213,13 @@ onMounted(() => {
           >Change data</v-btn
         >
         <DragAndDrop
-          v-if="userDatas"
+          v-if="userDatas?.name"
           :userId="userIdCookied"
           :onSuccess="refresh"
           :imgPath="userPhotoPath"
         />
       </v-col>
-      <div v-if="userIdCookied && userDatas" class="text-right pr-4">
+      <div v-if="userIdCookied && userDatas?.name" class="text-right pr-4">
         <p>{{ userDatas.name }}</p>
         <p>{{ userDatas.email }}</p>
       </div>

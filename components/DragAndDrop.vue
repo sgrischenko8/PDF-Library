@@ -146,7 +146,7 @@ onBeforeUnmount(() => {
       Crop
     </button>
     <p
-      v-if="!imgPath"
+      v-if="!imgPath && !imageUrl"
       style="
         position: absolute;
         top: 50%;
@@ -154,7 +154,11 @@ onBeforeUnmount(() => {
         transform: translate(-50%, -50%);
       "
     >
-      Drop {{ !imgPath ? 'PDF file' : 'new account photo' }} here
+      Drop
+      {{
+        useRoute().fullPath === '/MyFiles' ? 'PDF file' : 'new account photo'
+      }}
+      here
     </p>
 
     <v-dialog v-model="dialog" max-width="500">

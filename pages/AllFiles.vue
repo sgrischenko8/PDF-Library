@@ -25,6 +25,7 @@ async function fetchAllFiles() {
     })
     allFiles.value = formatTableData(response)
   } catch (error) {
+    navigateTo(`/`)
     console.error('Error fetching user data:', error)
   }
 }

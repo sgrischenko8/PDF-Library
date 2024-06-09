@@ -40,6 +40,7 @@ async function fetchUserData() {
     id.value = response.user._id
     tableData.value = formatTableData(response.files)
   } catch (error) {
+    navigateTo(`/`)
     console.error('Error fetching user data:', error)
   }
 }
