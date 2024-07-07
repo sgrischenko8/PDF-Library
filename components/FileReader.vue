@@ -22,7 +22,7 @@ onBeforeUnmount(() => props.onClose())
       >
 
       <iframe
-        :src="`http://localhost:3001/${props.path}`"
+        :src="`${process.env.API_URL}/${props.path}`"
         width="100%"
         height="1000px"
       ></iframe>

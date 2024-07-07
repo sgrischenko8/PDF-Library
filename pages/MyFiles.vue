@@ -29,7 +29,7 @@ async function fetchUserData() {
   }
   try {
     const response = await $fetch(
-      `http://localhost:3001/users/${userIdCookied.value}`,
+      `${process.env.API_URL}/users/${userIdCookied.value}`,
       {
         method: 'GET',
         credentials: 'include',
@@ -49,7 +49,7 @@ async function changeVisibility(id) {
   const index = tableData.value.findIndex((el) => el._id === id)
   const isVisible = tableData.value[index].visibility
   try {
-    await $fetch(`http://localhost:3001/api/files/${id}`, {
+    await $fetch(`${process.env.API_URL}/api/files/${id}`, {
       method: 'PATCH',
       body: { visibility: !isVisible },
       credentials: 'include',
@@ -63,7 +63,7 @@ async function changeVisibility(id) {
 
 async function deleteFile(id) {
   try {
-    await $fetch(`http://localhost:3001/api/files/${id}`, {
+    await $fetch(`${process.env.API_URL}/api/files/${id}`, {
       method: 'DELETE',
       credentials: 'include',
     })

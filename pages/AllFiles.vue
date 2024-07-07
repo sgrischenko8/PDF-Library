@@ -19,7 +19,7 @@ const headers = [
 
 async function fetchAllFiles() {
   try {
-    const response = await $fetch('http://localhost:3001/api/files', {
+    const response = await $fetch(`${process.env.API_URL}/api/files`, {
       method: 'GET',
       credentials: 'include',
     })

@@ -55,7 +55,7 @@ const onDrop = async (event) => {
         formData.append('file', file)
         formData.append('userId', props.userId)
 
-        const response = await $fetch('http://localhost:3001/api/files', {
+        const response = await $fetch(`${process.env.API_URL}/api/files`, {
           method: 'POST',
           body: formData,
           credentials: 'include',
@@ -105,7 +105,7 @@ async function savePhoto() {
 
   try {
     const response = await fetch(
-      `http://localhost:3001/users/${props.userId}/photo`,
+      `${process.env.API_URL}/users/${props.userId}/photo`,
       {
         method: 'PATCH',
         body: formData,

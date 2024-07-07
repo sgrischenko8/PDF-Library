@@ -43,7 +43,7 @@ function openDialog(dialog) {
 
 async function addUser() {
   try {
-    await $fetch('http://localhost:3001/users/register', {
+    await $fetch(`${process.env.API_URL}/users/register`, {
       method: 'POST',
       body: {
         name: name.value,
@@ -63,7 +63,7 @@ async function addUser() {
 
 async function login() {
   try {
-    const response = await $fetch('http://localhost:3001/users/login', {
+    const response = await $fetch(`${process.env.API_URL}/users/login`, {
       method: 'POST',
       body: {
         email: email.value,
@@ -72,7 +72,7 @@ async function login() {
       credentials: 'include',
     })
     if (response.photo) {
-      userPhotoPath.value = `http://localhost:3001/${response.photo}`
+      userPhotoPath.value = `${process.env.API_URL}/${response.photo}`
     }
     onClose()
     userDatas.value = response
@@ -85,7 +85,7 @@ async function login() {
 
 async function logout() {
   try {
-    await $fetch('http://localhost:3001/users/logout', {
+    await $fetch(`${process.env.API_URL}/users/logout`, {
       method: 'POST',
       credentials: 'include',
     })
@@ -106,13 +106,13 @@ async function getUser() {
       userDatas.value = {}
       return
     }
-    const response = await $fetch(`http://localhost:3001/users/current`, {
+    const response = await $fetch(`${process.env.API_URL}/users/current`, {
       method: 'GET',
       credentials: 'include',
     })
     userDatas.value = response
     if (response.photo) {
-      userPhotoPath.value = `http://localhost:3001/${response.photo}`
+      userPhotoPath.value = `${process.env.API_URL}/${response.photo}`
     }
   } catch (error) {
     console.error('Error fetching user data:', error)
@@ -143,7 +143,7 @@ async function updateUser() {
   userIdCookied.value = userDatas.value._id
   try {
     const response = await $fetch(
-      `http://localhost:3001/users/${userDatas.value._id}`,
+      `${process.env.API_URL}/users/${userDatas.value._id}`,
       {
         method: 'PATCH',
         body: updateData,
@@ -164,7 +164,7 @@ async function updateUser() {
 }
 
 function refresh(path) {
-  userPhotoPath.value = `http://localhost:3001/${path}`
+  userPhotoPath.value = `${process.env.API_URL}/${path}`
   getUser()
 }
 
