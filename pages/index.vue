@@ -12,6 +12,9 @@ const userPhotoPath = ref('')
 const userDatas = ref(null)
 const showPassword = ref(false)
 const showPassword2 = ref(false)
+const config = useRuntimeConfig()
+
+console.log(import.meta)
 
 function onSubmit() {
   if (currentDialog.value === 'sign') {
@@ -43,7 +46,7 @@ function openDialog(dialog) {
 
 async function addUser() {
   try {
-    await $fetch(`${process.env.API_URL}/users/register`, {
+    await $fetch(`${config.public.apiUrl}/users/register`, {
       method: 'POST',
       body: {
         name: name.value,
@@ -63,7 +66,7 @@ async function addUser() {
 
 async function login() {
   try {
-    const response = await $fetch(`${process.env.API_URL}/users/login`, {
+    const response = await $fetch(`${config.public.apiUrl}/users/login`, {
       method: 'POST',
       body: {
         email: email.value,
@@ -72,7 +75,7 @@ async function login() {
       credentials: 'include',
     })
     if (response.photo) {
-      userPhotoPath.value = `${process.env.API_URL}/${response.photo}`
+      userPhotoPath.value = `${config.public.apiUrl}/${response.photo}`
     }
     onClose()
     userDatas.value = response
@@ -85,7 +88,7 @@ async function login() {
 
 async function logout() {
   try {
-    await $fetch(`${process.env.API_URL}/users/logout`, {
+    await $fetch(`${config.public.apiUrl}/users/logout`, {
       method: 'POST',
       credentials: 'include',
     })
@@ -106,13 +109,13 @@ async function getUser() {
       userDatas.value = {}
       return
     }
-    const response = await $fetch(`${process.env.API_URL}/users/current`, {
+    const response = await $fetch(`${config.public.apiUrl}/users/current`, {
       method: 'GET',
       credentials: 'include',
     })
     userDatas.value = response
     if (response.photo) {
-      userPhotoPath.value = `${process.env.API_URL}/${response.photo}`
+      userPhotoPath.value = `${config.public.apiUrl}/${response.photo}`
     }
   } catch (error) {
     console.error('Error fetching user data:', error)
@@ -143,7 +146,7 @@ async function updateUser() {
   userIdCookied.value = userDatas.value._id
   try {
     const response = await $fetch(
-      `${process.env.API_URL}/users/${userDatas.value._id}`,
+      `${config.public.apiUrl}/users/${userDatas.value._id}`,
       {
         method: 'PATCH',
         body: updateData,
@@ -164,7 +167,7 @@ async function updateUser() {
 }
 
 function refresh(path) {
-  userPhotoPath.value = `${process.env.API_URL}/${path}`
+  userPhotoPath.value = `${config.public.apiUrl}/${path}`
   getUser()
 }
 

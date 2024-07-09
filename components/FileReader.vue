@@ -6,6 +6,8 @@ const props = defineProps({
   onClose: { type: Function },
 })
 
+const config = useRuntimeConfig()
+
 const showReader = ref(true)
 
 onBeforeUnmount(() => props.onClose())
@@ -22,7 +24,7 @@ onBeforeUnmount(() => props.onClose())
       >
 
       <iframe
-        :src="`${process.env.API_URL}/${props.path}`"
+        :src="`${config.public.apiUrl}/${props.path}`"
         width="100%"
         height="1000px"
       ></iframe>

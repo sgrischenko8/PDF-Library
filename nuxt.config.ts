@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiUrl: process.env.API_URL || 'http://localhost:3001',
+      apiUrl: 'http://localhost:3001',
     },
   },
   modules: [

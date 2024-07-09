@@ -10,6 +10,8 @@ const props = defineProps({
   imgPath: { type: String },
 })
 
+const config = useRuntimeConfig()
+
 const dialog = ref(false)
 const imageUrl = ref('')
 let file = null
@@ -55,7 +57,7 @@ const onDrop = async (event) => {
         formData.append('file', file)
         formData.append('userId', props.userId)
 
-        const response = await $fetch(`${process.env.API_URL}/api/files`, {
+        const response = await $fetch(`${config.public.apiUrl}/api/files`, {
           method: 'POST',
           body: formData,
           credentials: 'include',
@@ -105,7 +107,7 @@ async function savePhoto() {
 
   try {
     const response = await fetch(
-      `${process.env.API_URL}/users/${props.userId}/photo`,
+      `${config.public.apiUrl}/users/${props.userId}/photo`,
       {
         method: 'PATCH',
         body: formData,

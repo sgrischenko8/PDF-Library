@@ -1,4 +1,6 @@
 <script setup>
+const config = useRuntimeConfig()
+
 const allFiles = ref(null)
 const showPDF = ref(false)
 const path = ref('')
@@ -19,7 +21,7 @@ const headers = [
 
 async function fetchAllFiles() {
   try {
-    const response = await $fetch(`${process.env.API_URL}/api/files`, {
+    const response = await $fetch(`${config.public.apiUrl}/api/files`, {
       method: 'GET',
       credentials: 'include',
     })
